@@ -6,39 +6,27 @@
 #include <iomanip>
 using namespace std;
 
-//bool Crit(int Rate) {
-  //srand(time(0));
-    //for (int i = 0; i < Rate; i++) {
-   // int a = rand() % (100 + 1);
-    //if(a == Rate){
-      //  return true;
-        //break;
-   // }
-    //else {
-      //  return false;
-    //}
-    //}
+int Crit(int Rate) {
+    int a = rand() % (100 + 1);
+    for (int i = 0; i < Rate; i++) {
+    if(a == i){
+       return 2;
+         break;
+    }
     
-//}
-
-//int main() {
-  //  int Rate = 50;
-    //float Damage = 1.5;
-    //int BaseDamage = 300;
-    //int EnemyHP = 1000;
-    //Crit(Rate);
-    //if (Crit(Rate) == false) {
-      //  int b = EnemyHP - BaseDamage;
-        //cout << "Enemy HP is " << b;
-    //}
-    //if(Crit(Rate) == true) {
-      //  int b1 = EnemyHP - BaseDamage * Damage;
-        //cout << "Enemy HP is " << b1;
-    //}
-//}
+    else {
+        continue;
+    }
+    if (i == Rate) {
+        return 1;
+    }
+    }
+    
+}
 
 int main() {
     setlocale(LC_ALL, "Russian");
+    srand(time(0))
     int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4;
     int r;
     for (r = 0; r < 1; r++) {
