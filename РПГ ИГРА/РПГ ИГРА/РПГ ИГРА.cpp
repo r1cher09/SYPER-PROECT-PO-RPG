@@ -26,7 +26,7 @@ int Crit(int Rate) {
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    srand(time(0))
+    srand(time(0));
     int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4;
     int r;
     for (r = 0; r < 1; r++) {
