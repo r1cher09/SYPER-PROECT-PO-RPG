@@ -6,28 +6,40 @@
 #include <iomanip>
 using namespace std;
 
-int Crit(int Rate) {
-    int a = rand() % (100 + 1);
-    for (int i = 0; i < Rate; i++) {
-    if(a == i){
-       return 2;
-         break;
-    }
-    
-    else {
-        continue;
-    }
-    if (i == Rate) {
-        return 1;
-    }
-    }
-    
-}
+//bool Crit(int Rate) {
+  //srand(time(0));
+    //for (int i = 0; i < Rate; i++) {
+   // int a = rand() % (100 + 1);
+    //if(a == Rate){
+      //  return true;
+        //break;
+   // }
+    //else {
+      //  return false;
+    //}
+    //}
+
+//}
+
+//int main() {
+  //  int Rate = 50;
+    //float Damage = 1.5;
+    //int BaseDamage = 300;
+    //int EnemyHP = 1000;
+    //Crit(Rate);
+    //if (Crit(Rate) == false) {
+      //  int b = EnemyHP - BaseDamage;
+        //cout << "Enemy HP is " << b;
+    //}
+    //if(Crit(Rate) == true) {
+      //  int b1 = EnemyHP - BaseDamage * Damage;
+        //cout << "Enemy HP is " << b1;
+    //}
+//}
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    srand(time(0));
-    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4;
+    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4,int_vibor_igroka5;
     int r;
     for (r = 0; r < 1; r++) {
         do {
@@ -181,10 +193,10 @@ int main() {
                     Sleep(1000);
                     cout << "\n";
                     cout << "| но внезапно из неизвестной мужской руки    |\n";
-                    cout << "| вылетает топор точно попадающий в веревку  |\n";
+                    cout << "| вылетает топор точно попадающий в веревку, |\n";
                     cout << "| вы падаете на деревянный пол и не понимая  |\n";
-                    cout << "| кто это он подходит к вам и кричит         |\n";
-                    cout << "| <<ОН со мной!>> и вы опираясь на него идете|\n";
+                    cout << "| кто он такой,вы берете его руку и он кричит|\n";
+                    cout << "| <<ОН со мной!>> и опираясь на него идете   |\n";
                     cout << "| к нему домой, он дает вам еды воды и вы    |\n";//пополнить еду и воду до 100%
                     cout << "| спрашиваете                                |\n";
                     cout << "|____________________________________________|\n";
@@ -383,7 +395,7 @@ int main() {
                                 do {
                                     cout << "______________________________________________\n";
                                     cout << "| вы увидили большую надпись ГОНДУРАХА и двух|\n";
-                                    cout << "| стражников                                 |\n";//cюда тоже самое что и в 382 строке
+                                    cout << "| стражников                                 |\n";//cюда тоже самое что и в 387 строке
                                     cout << "|                                            |\n";
                                     cout << "|                                            |\n";
                                     cout << "|                                            |\n";
@@ -395,15 +407,31 @@ int main() {
                 }
             }
             if (vibor_igroka4 == 2) {//пойти по тропе смерти
-                cout << "______________________________________________\n";
-                cout << "|     цвфвывфцв |\n";
-                cout << "|                                            |\n";
-                cout << "|                                            |\n";
+                do {
+                    cout << "______________________________________________\n";
+                    cout << "| пройдя по тропинке смерти вы замечаете что |\n";
+                    cout << "| все начинает меняться, листья на деревьях  |\n";
+                    cout << "| темнеют, трава становиться вся выжженой    |\n";
+                    cout << "| и так продолжаеться до моста над пропостью |\n";
+                    cout << "|                                            |\n";
+                    cout << "| |1|посмотреть вниз |2|пойти по мосту       |\n";
+                    cout << "|____________________________________________|\n";
+                    cin >> vibor_igroka2;
+                } while (vibor_igroka2 != 1 && vibor_igroka2 != 2);
+                if (vibor_igroka2 == 1) {
+                    do {
+                        cout << "______________________________________________\n";
+                        cout << "| внизу лава...                              |\n";
+                        cout << "|                                            |\n";
+                        cout << "| |1|пойти по мосту                          |\n";
+                        cout << "|____________________________________________|\n";
+                        cin >> vibor_igroka;
+                    } while (vibor_igroka == 1);
+                }
             }
         }
     }
 }
-
 
 
 
