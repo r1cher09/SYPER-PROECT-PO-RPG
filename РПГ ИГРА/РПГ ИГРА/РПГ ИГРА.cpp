@@ -1,9 +1,9 @@
 ﻿// РПГ ИГРА.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 #include <iostream>
-#include <dos.h>
-#include <windows.h>
 #include <iomanip>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 //bool Crit(int Rate) {
@@ -177,17 +177,17 @@ int main() {
                     cout << "|  вы закричали на волка, но он набросился   |\n";
                     cout << "|  на вас и растерзал                        |\n";
                     cout << "|                                            |\n";
-                    Sleep(600);
+                    this_thread::sleep_for(chrono::nanoseconds(600000000));
                     cout << "|   W";
-                    Sleep(600);
+                    this_thread::sleep_for(chrono::nanoseconds(600000000));
                     cout << "  A";
-                    Sleep(600);
+                    this_thread::sleep_for(chrono::nanoseconds(600000000));
                     cout << "  S";
-                    Sleep(600);
+                    this_thread::sleep_for(chrono::nanoseconds(600000000));
                     cout << "  T";
-                    Sleep(600);
+                    this_thread::sleep_for(chrono::nanoseconds(600000000));
                     cout << "  E";
-                    Sleep(600);
+                    this_thread::sleep_for(chrono::nanoseconds(600000000));
                     cout << "  D                         |";
                     cout << "\n";
                     cout << "|                                            |\n";
@@ -205,13 +205,13 @@ int main() {
                     cout << "| привязывают к большому столбу, под вами    |\n";
                     cout << "| пропадает пол, становиться трудно дышать   |\n";
                     cout << "| кружиться голова, вы уже теряете сознание  |\n";
-                    Sleep(10000);
+                    this_thread::sleep_for(chrono::nanoseconds(10000000000));
                     cout << ".";
-                    Sleep(1500);
+                    this_thread::sleep_for(chrono::nanoseconds(1500000000));
                     cout << ".";
-                    Sleep(1500);
+                    this_thread::sleep_for(chrono::nanoseconds(1500000000));
                     cout << ".";
-                    Sleep(1000);
+                    this_thread::sleep_for(chrono::nanoseconds(1000000000));
                     cout << "\n";
                     cout << "| но внезапно из неизвестной мужской руки    |\n";
                     cout << "| вылетает топор точно попадающий в веревку, |\n";
@@ -279,7 +279,7 @@ int main() {
                     cout << "| колдун достает пистолет и стреляет в вас   |\n";
                     cout << "|                                            |\n";
                     cout << "|____________________________________________|\n";
-                    Sleep(3000);
+                    this_thread::sleep_for(chrono::nanoseconds(3000000000));
                     cout << "\n";
                     cout << "\n";
                     cout << "\n";
@@ -426,7 +426,7 @@ int main() {
                         cout << "| шагу. Cмотри под ноги, не вляпайся в него  |\n";
                         cout << "|                                            |\n";
                         cout << "|____________________________________________|\n";
-                        Sleep(3500); \
+                        this_thread::sleep_for(chrono::nanoseconds(3500000000)); \
                             do {
                                 food--;
                                 water--;
@@ -589,7 +589,7 @@ int main() {
                                 cout << "| сказали вы, придеться спрашивать у людей   |\n";
                                 cout << "|____________________________________________|\n";
                                 vibor_igroka2 = 2;
-                                Sleep(5000);
+                                this_thread::sleep_for(chrono::nanoseconds(5000000000));
                             }
                             if (vibor_igroka2 == 2) {
                                 do {
@@ -622,7 +622,7 @@ int main() {
                                 //БОЙ С ВОЛКОМ
                                 cout << "вы убили волка и продолжили ваш путь\n";
                                 vibor_igroka2 = 1;
-                                Sleep(3000);
+                                this_thread::sleep_for(chrono::nanoseconds(3000000000));
                             }
                             if (vibor_igroka2 == 1) {
                                 do {
@@ -710,6 +710,16 @@ int main() {
                             cout << "|____________________________________________|\n";
                             cin >> vibor_igroka5;
                         } while (vibor_igroka5 != 1 && vibor_igroka5 != 2);
+                        if (vibor_igroka5 == 1) {
+                            do {
+                                cout << "______________________________________________\n";
+                                cout << "| ты точно хочешь отказаться?                |\n";
+                                cout << "|                                            |\n";
+                                cout << "| |1|отказаться |2|согласиться               |\n";
+                                cout << "|____________________________________________|\n";
+                                cin >> vibor_igroka5;
+                            } while (vibor_igroka5 != 1 && vibor_igroka5 != 2);
+                        }
                     }
                     if (vibor_igroka5 == 1) {
                         vibor_igroka = 0;
@@ -778,7 +788,7 @@ int main() {
                         cout << "| ничего не было и вы пошли в спальню        |\n";
                         cout << "|                                            |\n";
                         cout << "|____________________________________________|\n";
-                        Sleep(5000);
+                        this_thread::sleep_for(chrono::nanoseconds(5000000000));
                         do {
                             cout << "______________________________________________\n";
                             cout << "| в спальне была большая двухместная кровать |\n";
@@ -797,7 +807,7 @@ int main() {
                         cout << "| и спуска в низ, и вы пошли на кухню        |\n";
                         cout << "|                                            |\n";
                         cout << "|____________________________________________|\n";
-                        Sleep(3500);
+                        this_thread::sleep_for(chrono::nanoseconds(3500000000));
                         do {
                             cout << "______________________________________________\n";
                             cout << "| на кухне не было ничего кроме очень вкусной|\n";
@@ -886,9 +896,9 @@ int main() {
                         do {
                             cout << "______________________________________________\n";
                             cout << "| вы начинаете пихать золото по карманам, но |\n";
-                            cout << "| слышите <так, что-то тут не так...";
-                            Sleep(6000);
-                            cout << "ГДЕ КЛЮЧ?|\n";
+                            cout << "| слышите <так,подожди ка, что-то тут не так,|";
+                            this_thread::sleep_for(chrono::nanoseconds(6000000000));
+                            cout << "\n| ГДЕ КЛЮЧ?                                  |\n";
                             cout << "|                                            |\n";
                             cout << "| |1|бежать через маленькое окошко на улицу  |\n";
                             cout << "| |2|пихать золото по карманам               |\n";
@@ -1007,7 +1017,7 @@ int main() {
                             cout << "| вы пошли и нашли охранника который на вас  |\n";
                             cout << "| набросился и ударил по голове...           |\n";
                             cout << "|____________________________________________|\n";
-                            Sleep(3500);
+                            this_thread::sleep_for(chrono::nanoseconds(3500000000));
                             cout << "______________________________________________\n";
                             cout << "| |1|ПРОСНУТЬСЯ!                             |\n";
                             cout << "|____________________________________________|\n";
