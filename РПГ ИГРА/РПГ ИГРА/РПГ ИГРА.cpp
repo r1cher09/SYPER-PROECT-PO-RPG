@@ -41,6 +41,7 @@ int main() {
     setlocale(LC_ALL, "Russian");
     int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5, food, water, health;
     int r;//нужен только для for
+    r=0;
     food = 100;
     water = 100;
     health = 1000;
