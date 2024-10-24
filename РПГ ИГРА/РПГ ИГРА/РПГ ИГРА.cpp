@@ -571,9 +571,10 @@ int main() {
                                     } while (vibor_igroka2 != 1);
                                 }
                                 if (vibor_igroka2 == 2) {
+				health = 1000;
+	                        enemyhealth = 500;
                                for (int i = 0; i < enemyhealth;) {
-				      health = 1000;
-	                              enemyhealth = 500;
+				      
 	                              cout << "|        Волк устрашающе рычит.              |\n";
 	                              cout << "|    1) Атаковать?     2)Защищаться?         |\n";
 	                              cin >> fight;
