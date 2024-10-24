@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5, food, water, health, atk, enemyhealth, fight;
+    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5, food, water, health, atk, enemyhealth, fight,money=0;
     int r;//нужен только для for
     atk = 50;
     r=0;
@@ -304,16 +304,29 @@ int main() {
                                     water--;
                                     cout << "______________________________________________\n";
                                     cout << "| вы пошли направо и вам подвернулась удача, |\n";
-                                    cout << "| вы нашли пару монет и желудь на полу, но   |\n";
+                                    cout << "| вы нашли пару мемкоинов и желудь на полу, и|\n";
                                     cout << "| с ними так же конец дороги и решили пойти  |\n";
                                     cout << "| назад и увидели большую надпись ГОРОД, а   |\n";
                                     cout << "| так же двух стражников                     |\n";//добавте разговор стражников и главного героя но чтобы героя пропустили
                                     cout << "|                                            |\n";
-                                    cout << "| |1|продолжить                              |\n";
+                                    cout << "| |1|продолжить  |2|посмотреть количество мем|\n";
+                                    cout << "| коинов                                     |\n";
                                     cout << "|____________________________________________|\n";
                                     cin >> vibor_igroka;
                                 } while (vibor_igroka != 1 && vibor_igroka != 2);
+                                money = money + 200;
                             }
+                            if (vibor_igroka == 2) {
+                                do {
+                                    cout << "______________________________________________\n";
+                                    cout << "| у вас " << money << "                                     | \n";
+                                    cout << "|                                            |\n";
+                                    cout << "| |1|продолжить                              |\n";
+                                    cout << "|____________________________________________|\n";
+                                    cin >> vibor_igroka;
+                                } while (vibor_igroka != 1);
+                            }
+
                             if (vibor_igroka3 == 1) {
                                 do {
                                     food--;
