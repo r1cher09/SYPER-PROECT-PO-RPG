@@ -10,12 +10,12 @@ using namespace std;
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5, food, water, health;
+    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5, food, water, health, atk, enemyhealth;
     int r;//нужен только для for
+    atk = 50;
     r=0;
     food = 100;
     water = 100;
-    health = 1000;
     for (r = 0; r < 1; r++) {
         do {
             cout << "______________________________________________\n";
@@ -572,6 +572,7 @@ int main() {
                                 }
                                 if (vibor_igroka2 == 2) {
                                for (int i = 0; i < enemyhealth;) {
+				      health = 1000;
 	                              enemyhealth = 500;
 	                              cout << "|        Волк устрашающе рычит.              |\n";
 	                              cout << "|    1) Атаковать?     2)Защищаться?         |\n";
