@@ -42,8 +42,8 @@ int main() {
         } while (vibor_igroka != 1 && vibor_igroka!=2);
         if (vibor_igroka == 1) {
             do {
-                food== 0;
-                water== 0;
+                food= 0;
+                water= 0;
                 cout << "______________________________________________\n";
                 cout << "|   рядом с вами тропинка и сундук           |\n";
                 cout << "|                                            |\n";
@@ -611,7 +611,7 @@ int main() {
                                         } while (vibor_igroka3 != 1 && vibor_igroka3 != 2);
                                     }
                                     if (vibor_igroka3 == 3) {
-                                        do {};
+                                        do {
                                             food--;
                                             water--;
                                             cout << "______________________________________________\n";
@@ -1698,7 +1698,9 @@ int main() {
             }
         }
     }
-}    
+}
+   
+  
         
 
 
