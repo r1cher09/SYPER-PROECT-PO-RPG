@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5, food, water, health, atk, enemyhealth;
+    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5, food, water, health, atk, enemyhealth, fight;
     int r;//нужен только для for
     atk = 50;
     r=0;
