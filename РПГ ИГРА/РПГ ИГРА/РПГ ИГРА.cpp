@@ -276,6 +276,13 @@ int main() {
                     cin >> vibor_igroka;
                 } while (vibor_igroka != 1 && vibor_igroka != 2);
                 if (vibor_igroka == 1 or vibor_igroka == 2) {
+			if (vibor_igroka == 1 or vibor_igroka == 2) {
+			if(vibor_igroka == 1){
+                                atk = atk + 25;
+			}
+			if(vibor_igroka == 2){
+                              atk = atk + 30;
+			}
                     do {
                         food--;
                         water--;
@@ -600,7 +607,12 @@ int main() {
 				health = 1000;
 	                        enemyhealth = 500;
                                for (int i = 0; i < enemyhealth;) {
+				       int a = 0;
 				      if(health <= 0){
+					cout << "|           Вы погибли.                    |\n";
+					return 0;
+				      }
+				       if(a == 15){
 					cout << "|           Вы погибли.                    |\n";
 					return 0;
 				      }
@@ -617,6 +629,7 @@ int main() {
 		                             cout << "|    Вы отражаете удар волка,                |\n";
 		                             cout << "|             и даже бьёте волка по морде.   |\n";
 		                             enemyhealth = enemyhealth - 10;
+					     a++;
 	                              }
 	                             cout << "|        Ваше оставшееся HP = " << health << "             |\n";
                               	cout << "|        Оставшееся HP врага = " << enemyhealth << "            |\n";
