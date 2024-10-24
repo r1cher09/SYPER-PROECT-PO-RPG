@@ -589,7 +589,7 @@ int main() {
                                for (int i = 0; i < enemyhealth;) {
 				      if(health <= 0){
 					cout << "|           Вы погибли.                    |\n";
-					break;
+					return 0;
 				      }
 	                              cout << "|        Волк устрашающе рычит.              |\n";
 	                              cout << "|    1) Атаковать?     2)Защищаться?         |\n";
