@@ -6,36 +6,7 @@
 #include <chrono>
 using namespace std;
 
-//bool Crit(int Rate) {
-  //srand(time(0));
-    //for (int i = 0; i < Rate; i++) {
-   // int a = rand() % (100 + 1);
-    //if(a == Rate){
-      //  return true;
-        //break;
-   // }
-    //else {
-      //  return false;
-    //}
-    //}
 
-//}
-
-//int main() {
-  //  int Rate = 50;
-    //float Damage = 1.5;
-    //int BaseDamage = 300;
-    //int EnemyHP = 1000;
-    //Crit(Rate);
-    //if (Crit(Rate) == false) {
-      //  int b = EnemyHP - BaseDamage;
-        //cout << "Enemy HP is " << b;
-    //}
-    //if(Crit(Rate) == true) {
-      //  int b1 = EnemyHP - BaseDamage * Damage;
-        //cout << "Enemy HP is " << b1;
-    //}
-//}
 
 int main() {
     setlocale(LC_ALL, "Russian");
@@ -600,7 +571,25 @@ int main() {
                                     } while (vibor_igroka2 != 1);
                                 }
                                 if (vibor_igroka2 == 2) {
-                                    //БОЙ С ВОЛКОМ
+                               for (int i = 0; i < enemyhealth;) {
+	                              enemyhealth = 500;
+	                              cout << "|        Волк устрашающе рычит.              |\n";
+	                              cout << "|    1) Атаковать?     2)Защищаться?         |\n";
+	                              cin >> fight;
+	                              if (fight == 1) {
+		                               cout << "|    Вы бъёте волка,                         |\n";
+		                               cout << "|             но получаете несколько царапин.|\n";
+		                               enemyhealth = enemyhealth - atk;
+		                               health = health - 125;
+	                              }
+	                             if (fight == 2) {
+		                             cout << "|    Вы отражаете удар волка,                |\n";
+		                             cout << "|             и даже бьёте волка по морде.   |\n";
+		                             enemyhealth = enemyhealth - 10;
+	                              }
+	                             cout << "|        Ваше оставшееся HP = " << health << "             |\n";
+                              	cout << "|        Оставшееся HP врага = " << enemyhealth << "            |\n";
+                                }
                                     cout << "вы убили волка и продолжили ваш путь\n";
                                     vibor_igroka2 = 1;
                                     this_thread::sleep_for(chrono::nanoseconds(3000000000));
