@@ -36,6 +36,18 @@ int main() {
             cout << "|____________________________________________|\n";
             cin >> vibor_igroka;
         } while (vibor_igroka != 1 && vibor_igroka!=2);
+        if (vibor_igroka == 1) {
+            do {
+                food--;
+                water--;
+                cout << "______________________________________________\n";
+                cout << "|   рядом с вами тропинка и сундук           |\n";
+                cout << "|                                            |\n";
+                cout << "| |1|пойти по тропинке |2|открыть сундук     |\n";
+                cout << "|____________________________________________|\n";
+                cin >> vibor_igroka4;
+            } while (vibor_igroka4 != 1 && vibor_igroka4);
+        }
         if (vibor_igroka==2){
             do {
                 cout << "______________________________________________\n";
@@ -56,18 +68,6 @@ int main() {
                 cout << "|____________________________________________|\n";
                 cin >> vibor_igroka;
             } while (vibor_igroka != 1);
-        if (vibor_igroka == 1) {
-            do {
-                food--;
-                water--;
-                cout << "______________________________________________\n";
-                cout << "|   рядом с вами тропинка и сундук           |\n";
-                cout << "|                                            |\n";
-                cout << "| |1|пойти по тропинке |2|открыть сундук     |\n";
-                cout << "|____________________________________________|\n";
-                cin >> vibor_igroka4;
-            } while (vibor_igroka4 != 1 && vibor_igroka4);
-        }
         if (vibor_igroka4 == 2) {
             do {
                 food--;
