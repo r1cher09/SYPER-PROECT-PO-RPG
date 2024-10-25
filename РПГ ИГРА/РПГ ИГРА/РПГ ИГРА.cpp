@@ -661,7 +661,7 @@ int main() {
                                                 return 0;
                                             }
                                             if (a == 15) {
-                                                cout << "|           Вы погибли.                    |\n";
+                                                cout << "|Ваша защита была пробита и волк вас закрыз.|\n";
                                                 return 0;
                                             }
                                             cout << "|        Волк устрашающе рычит.              |\n";
@@ -1231,6 +1231,37 @@ int main() {
                                 cout << "|                                            |\n";
                                 cout << "| |1|выйграть |2|проиграть                   |\n";
                                 cout << "|____________________________________________|\n";
+                                health = 1000;
+                                enemyhealth = 1500;
+                                for (int i = 0; i < enemyhealth;) {
+                                        int a = 0;
+                                        if (health <= 0) {
+                                            cout << "|           Вы погибли.                    |\n";
+                                            return 0;
+                                         }
+                                         if (a == 15) {
+                                             cout << "|   Ваша защита была пробита              |\n";
+                                             cout << "|    и стражник проткнул вас насквозь     |\n"
+                                            return 0;
+                                          }
+                                            cout << "|        Стражник готовится атаковать.       |\n";
+                                            cout << "|    1) Атаковать?     2)Защищаться?         |\n";
+                                            cin >> fight;
+                                            if (fight == 1) {
+                                                cout << "|    Вы бъёте волка,                         |\n";
+                                                cout << "|             но получаете несколько царапин.|\n";
+                                                enemyhealth = enemyhealth - atk;
+                                                health = health - 125;
+                                            }
+                                            if (fight == 2) {
+                                                cout << "|    Вы отражаете удар стража,               |\n";
+                                                cout << "|             и, пользуясь моментом, бьёте.  |\n";
+                                                enemyhealth = enemyhealth - 50;
+                                                a++;
+                                            }
+                                            cout << "|        Ваше оставшееся HP = " << health << "             |\n";
+                                            cout << "|        Оставшееся HP врага = " << enemyhealth << "            |\n";
+                                        }
                                 cin >> vibor_igroka;
                             } while (vibor_igroka != 1 && vibor_igroka != 2);
                         }
@@ -1570,6 +1601,38 @@ int main() {
                     cout << "| |1|ты струсил? зачем отправлять цербера    |\n";
                     cout << "|                                            |\n";
                     cout << "|____________________________________________|\n";
+                    health = 1000;
+                    enemyhealth = 1500;
+                    for (int i = 0; i < enemyhealth;) {
+                            int a = 0;
+                            if (health <= 0) {
+                                cout << "|           Вы погибли.                    |\n";
+                                return 0;
+                             }
+                             if (a == 15) {
+                                             cout << "|   Ваша защита была пробита              |\n";
+                                             cout << "|    и стражник проткнул вас насквозь     |\n"
+                                            return 0;
+                                          }
+                                            cout << "|        Стражник готовится атаковать.       |\n";
+                                            cout << "|    1) Атаковать?     2)Защищаться?         |\n";
+                                            cin >> fight;
+                                            if (fight == 1) {
+                                                cout << "|    Вы бъёте волка,                         |\n";
+                                                cout << "|             но получаете несколько царапин.|\n";
+                                                enemyhealth = enemyhealth - atk;
+                                                health = health - 125;
+                                            }
+                                            if (fight == 2) {
+                                                cout << "|    Вы отражаете удар стража,               |\n";
+                                                cout << "|             и, пользуясь моментом, бьёте.  |\n";
+                                                enemyhealth = enemyhealth - 50;
+                                                a++;
+                                            }
+                                            cout << "|        Ваше оставшееся HP = " << health << "             |\n";
+                                            cout << "|        Оставшееся HP врага = " << enemyhealth << "            |\n";
+                                        }
+                                 
                     cin >> vibor_igroka2;
                 } while (vibor_igroka2 != 1);
                 if (vibor_igroka2 == 1) {
