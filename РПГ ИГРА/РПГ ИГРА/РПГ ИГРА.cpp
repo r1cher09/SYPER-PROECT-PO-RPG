@@ -491,7 +491,7 @@ int main() {
                                     cin >> vibor_igroka3;
                                 } while (vibor_igroka3 != 1 && vibor_igroka3 != 2);
                                 if (vibor_igroka3 == 2) {
-                                    money = money + 200;
+                                    money = playerCoins + 200;
                                     do {
                                         
                                         cout << "______________________________________________\n";
@@ -533,7 +533,7 @@ int main() {
                                     } while (vibor_igroka != 1);
                                 }
                                 if (vibor_igroka == 1) {
-                                    money = money + 500;
+                                    money = playerCoins + 500;
                                     do {
                                        
                                         cout << "______________________________________________\n";
@@ -608,7 +608,7 @@ int main() {
                                         } while (vibor_igroka3 != 1);
                                     }
                                     if (vibor_igroka2 == 2) {
-                                        money = money - 100;
+                                        money = playerCoins - 100;
                                         cout << "______________________________________________\n";
                                         cout << "| проснувшись вы продолжили путь (-100 мем-  |\n";
                                         cout << "| коинов                                     |\n";
@@ -841,7 +841,7 @@ int main() {
                                         this_thread::sleep_for(chrono::nanoseconds(3000000000));
                                     }
                                     if (vibor_igroka2 == 1) {
-                                        money = money + 500;
+                                        money = playerCoins + 500;
                                         do {
                                             
                                             cout << "______________________________________________\n";
@@ -876,7 +876,7 @@ int main() {
                                             cin >> vibor_igroka2;
                                         } while (vibor_igroka2 != 1);
                                     }
-                                    money = money - 200;
+                                    money = playerCoins - 200;
                                     if (vibor_igroka2 == 1) {
                                         do {
                                             
@@ -959,7 +959,7 @@ int main() {
                 } while (vibor_igroka != 1);
             }
             if (vibor_igroka == 1) {
-                money = money + 500;
+                money = playerCoins + 500;
                 do {
 
                     cout << "______________________________________________\n";
@@ -1188,7 +1188,7 @@ int main() {
                 vibor_igroka = 1;
             }
             if (vibor_igroka == 2) {
-                money = money + 150;
+                money = playerCoins + 150;
                 do {
 
                     cout << "______________________________________________\n";
@@ -1204,7 +1204,7 @@ int main() {
                 } while (vibor_igroka != 1 && vibor_igroka != 2);
             }
             if (vibor_igroka == 2) {
-                money = money + 150;
+                money = playerCoins + 150;
                 do {
                     cout << "______________________________________________\n";
                     cout << "| вы пихаете дальше и уже слышите быстрый    |\n";
@@ -2372,7 +2372,7 @@ int main() {
                     } while (vibor_igroka != 1);
                 }
                 if (vibor_igroka == 1) {
-                    money = money + 500;
+                    money = playerCoins + 500;
                     do {
                         cout << "______________________________________________\n";
                         cout << "| потратив несколько десятков минут аскалаф  |\n";
@@ -2566,7 +2566,7 @@ int main() {
                         } while (vibor_igroka != 1);
                     }
                     if (vibor_igroka == 1) {
-                        money = money + 1000;
+                        money = playerCoins + 1000;
                         do {
                             cout << "______________________________________________\n";
                             cout << "| вы пришли к аскалафу и он отблагодарил вас |\n";
@@ -2770,7 +2770,7 @@ int main() {
                             cin >> vibor_igroka;
                         } while (vibor_igroka != 1);
                         if (vibor_igroka == 1) {
-                            money = money + 500;
+                            money = playerCoins + 500;
                             do {
                                 cout << "______________________________________________\n";
                                 cout << "| мертвая душа:*германский акцент* айн был   |\n";
@@ -2816,7 +2816,7 @@ int main() {
                     } while (vibor_igroka != 1);
                 }
                 if (vibor_igroka == 1) {//1 душа
-                    money = money + 500;
+                    money = playerCoins + 500;
                     do {
                         cout << "______________________________________________\n";
                         cout << "| вы сели в лодку и посадили туда 1 мертвую  |\n";
@@ -3115,7 +3115,7 @@ int main() {
                             } while (vibor_igroka != 1);
                         }
                         if (vibor_igroka == 1) {
-                            money = money + 1000;
+                            money = playerCoins + 1000;
                             do {
                                 cout << "______________________________________________\n";
                                 cout << "| вы пришли к аскалафу и он отблагодарил вас |\n";
@@ -3138,7 +3138,7 @@ int main() {
                                 cin >> vibor_igroka2;
                             } while (vibor_igroka2 != 1);
                             if (vibor_igroka2 == 1) {
-                                money = money + 1000;
+                                money = playerCoins + 1000;
                                 do {
                                     cout << "______________________________________________\n";
                                     cout << "| вы пришли к аскалафу и он отблагодарил вас |\n";
@@ -3231,7 +3231,7 @@ int main() {
                         } while (vibor_igroka != 1);
                     }
                     if (vibor_igroka == 1) {
-                        money = money + 500;
+                        money = playerCoins + 500;
                         do {
                             cout << "______________________________________________\n";
                             cout << "| после победы над кампе вы вернулись к дочке|\n";
