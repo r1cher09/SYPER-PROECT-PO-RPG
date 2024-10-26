@@ -32,6 +32,7 @@ void paths(int a, int b, int defen, int atk, int erud){
             cout << "  После выполнения заданий и побед в боях     \n";
             cout << "  вы будете получать по одному очку.          \n";
             cout << "______________________________________________\n";
+             this_thread::sleep_for(chrono::nanoseconds(3000000000));
              return;
             
         }
