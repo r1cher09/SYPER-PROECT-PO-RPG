@@ -23,13 +23,7 @@ void paths(int a, int b, int defen, int atk, int erud){
         cout << "______________________________________________\n";
         cout << "            Кол-во очков:                     \n";
         cout << b << "\n";
-        cout << "             1) ЗАЩИТА                       \n";
-        cout << "  2)нАПАДЕНИЕ          3)ЭРУДИЦИЯ             \n";
-        cout << "                                              \n";
-        cout << "______________________________________________\n";
-        cin >> a;
         if(b == 0){
-            cout << "______________________________________________\n";
             cout << "     Вам не хватило очков для прокачки.       \n";
             cout << "   Очки можно получить, сходив в Оптику.      \n";
             this_thread::sleep_for(chrono::nanoseconds(3000000000));
@@ -40,6 +34,12 @@ void paths(int a, int b, int defen, int atk, int erud){
             cout << "______________________________________________\n";
             
         }
+        cout << "             1) ЗАЩИТА                       \n";
+        cout << "  2)нАПАДЕНИЕ          3)ЭРУДИЦИЯ             \n";
+        cout << "                                              \n";
+        cout << "______________________________________________\n";
+        cin >> a;
+        
         if(a == 1){
             defen = defen + 20;
             b--;
@@ -258,7 +258,7 @@ void manageShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
 
 int main() {
     setlocale(LC_ALL, "ru_RU");
-    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5 = 0, health, atk, enemyhealth, fight, money = 0, defence = 0, erud = 0, b= 0, a;
+    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5 = 0, health, atk, enemyhealth, fight, money = 0, defence = 0, erud = 0, b= 0, a = 0;
     int r;//нужен только для for
     Inventory playerInventory;
     Shop gameShop;
