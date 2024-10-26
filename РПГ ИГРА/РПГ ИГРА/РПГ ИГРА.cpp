@@ -9,6 +9,58 @@
 #include <string>
 using namespace std;
 
+void paths(int a, int b, int defen, int atk, int erud){
+     cout << "______________________________________________\n";
+     cout << "    Открыть меню путей прокачки?              \n";
+     cout << "  1) Нет                      2) Да           \n";
+     cout << "______________________________________________\n";
+    cin >> a;
+    if(a == 1){
+        cout << "\n";
+    }
+    if(a == 2){
+        
+        cout << "______________________________________________\n";
+        cout << "            Кол-во очков:                     \n";
+        cout << b << "\n";
+        cout << "             1) ЗАЩИТА                       \n";
+        cout << "  2)нАПАДЕНИЕ          3)ЭРУДИЦИЯ             \n";
+        cout << "                                              \n";
+        cout << "______________________________________________\n";
+        cin >> a;
+        if(b == 0){
+            cout << "______________________________________________\n";
+            cout << "     Вам не хватило очков для прокачки.       \n";
+            cout << "   Очки можно получить, сходив в Оптику.      \n";
+            this_thread::sleep_for(chrono::nanoseconds(3000000000));
+            cout << "          Да ладно, смешно же.                \n";
+            cout << "   Очки можно получить  по ходу сюжета.       \n";
+            cout << "  После выполнения заданий и побед в боях     \n";
+            cout << "  вы будете получать по одному очку.          \n";
+            cout << "______________________________________________\n";
+            
+        }
+        if(a == 1){
+            defen = defen + 20;
+            b--;
+            cout << "             ЗАЩИТА равна:                    \n";
+            cout << defen << "\n";
+        }
+        if(a == 2){
+            atk = atk + 15;
+            b--;
+            cout << "             АТАКА равна:                     \n";
+            cout << atk << "\n";
+        }
+        if(a == 3){
+            erud = erud + 1;
+            b--;
+            cout << "             ЭРУДИЦИЯ равна:                  \n";
+            cout << erud << "\n";
+        }
+    }
+
+}
 //Говнокод on
 //Механика нвентаря
 struct Item {
@@ -206,7 +258,7 @@ void manageShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
 
 int main() {
     setlocale(LC_ALL, "ru_RU");
-    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5 = 0, health, atk, enemyhealth, fight, money = 0;
+    int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5 = 0, health, atk, enemyhealth, fight, money = 0, defence = 0, erud = 0, b= 0, a;
     int r;//нужен только для for
     Inventory playerInventory;
     Shop gameShop;
@@ -270,6 +322,7 @@ int main() {
         }
         if (vibor_igroka5 == 1) {//Пойти по тропинке
             do {
+                paths(a, b, defence, atk, erud);
 
                 cout << "______________________________________________\n";
                 cout << "| вы пошли по тропинке и наткнулись на       |\n";
