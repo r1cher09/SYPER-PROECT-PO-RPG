@@ -1,17 +1,215 @@
-﻿// РПГ ИГРА.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+// РПГ ИГРА.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 #include <iostream>
 #include <iomanip>
 #include <thread>
 #include <chrono>
+#include <vector>
+#include <string>
 using namespace std;
 
+//Говнокод on
+//Механика нвентаря
+struct Item {
+    string name;
+    string description;
+    int price;
+};
 
+class Inventory {
+public:
+    void addItem(const Item& item) { items.push_back(item); }
+    void removeItem(const string& itemName);
+    void viewInventory() const;
+    vector<Item> items;
+};
+
+void Inventory::removeItem(const string& itemName) {
+    for (auto it = items.begin(); it != items.end(); ++it) {
+        if (it->name == itemName) {
+            items.erase(it);
+            return;
+        }
+    }
+}
+
+void Inventory::viewInventory() const {
+    for (const auto& item : items) {
+        cout << "\n" << "Название: " << item.name << "\nОписание: " << item.description << "\nЦена: " << item.price << "\n\n";
+    }
+}
+
+bool hasRequiredItems(const Inventory& playerInventory) { //Проверка на наличие предметов
+    bool hasSword = false;
+    bool hasMatchesOrLighter = false;
+
+    for (const auto& item : playerInventory.items) {
+        if (item.name == "Меч") {
+            hasSword = true;
+        }
+        if (item.name == "Спички" || item.name == "Зажигалка") {
+            hasMatchesOrLighter = true;
+        }
+    }
+
+    return hasSword && hasMatchesOrLighter;
+}
+//
+
+//Механика магазина
+class Shop {
+public:
+    void addItem(const Item& item) { shopItems.push_back(item); }
+    void viewShop() const;
+    bool buyItem(const string& itemName, Inventory& playerInventory, int& playerCoins);
+    void initializeItems(); // Новая функция для добавления предметов в магазин
+private:
+    vector<Item> shopItems;
+};
+
+void Shop::viewShop() const {
+    for (const auto& item : shopItems) {
+        cout << "\n" << "Название: " << item.name << "\nОписание: " << item.description << "\nЦена: " << item.price << "\n\n";
+    }
+}
+
+bool Shop::buyItem(const string& itemName, Inventory& playerInventory, int& playerCoins) {
+    for (const auto& item : shopItems) {
+        if (item.name == itemName) {
+            if (playerCoins >= item.price) {
+                playerInventory.addItem(item);
+                playerCoins -= item.price;
+                return true;
+            }
+            else {
+                cout << "Недостаточно монет для покупки " << itemName << ".\n";
+                return false;
+            }
+        }
+    }
+    cout << "Предмет " << itemName << " не найден в магазине.\n";
+    this_thread::sleep_for(chrono::nanoseconds(3000000000));
+    return false;
+}
+
+void Shop::initializeItems() {
+    addItem({ "Меч", "Острый меч для сражений", 50 });
+    addItem({ "Верёвка", "Крепкая верёвка длиной 10 метров", 20 });
+    addItem({ "Зажигалка", "Зажигалка для разведения огня", 10 });
+    addItem({ "Спички", "Пачка спичек", 5 });
+}
+//
+
+//Управление инвентарем и магазином
+//Инвентарь
+void manageInventory(Inventory& playerInventory, int& playerCoins) {
+    bool running = true;
+    while (running) {
+        cout << "\n" << "Ваши монеты: " << playerCoins << endl; // Отображение количества монет
+        cout << "1. Посмотреть инвентарь\n";
+        cout << "2. Добавить предмет в инвентарь (Читы)\n";
+        cout << "3. Удалить предмет из инвентаря\n";
+        cout << "4. Вернуться в главное меню\n";
+        cout << "Выберите действие: ";
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            playerInventory.viewInventory();
+            break;
+        case 2: {
+            string itemName, itemDescription;
+            int itemPrice;
+            cout << "Введите название предмета: ";
+            cin.ignore();
+            getline(cin, itemName);
+            cout << "Введите описание предмета: ";
+            getline(cin, itemDescription);
+            cout << "Введите цену предмета: ";
+            cin >> itemPrice;
+            playerInventory.addItem({ itemName, itemDescription, itemPrice });
+            break;
+        }
+        case 3: {
+            string itemName;
+            cout << "Введите название предмета для удаления: ";
+            cin.ignore();
+            getline(cin, itemName);
+            playerInventory.removeItem(itemName);
+            break;
+        }
+        case 4:
+            running = false;
+            break;
+        default:
+            cout << "Неверный выбор!\n";
+            this_thread::sleep_for(chrono::nanoseconds(3000000000));
+            break;
+        }
+    }
+}
+
+//Магазин
+void manageShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
+    bool shopping = true;
+    while (shopping) {
+        cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+        gameShop.viewShop();
+
+        cout << "Введите номер предмета для покупки:\n";
+        cout << "1. Меч\n";
+        cout << "2. Верёвка\n";
+        cout << "3. Зажигалка\n";
+        cout << "4. Спички\n";
+        cout << "5. Выход\n";
+
+        int choice;
+        cin >> choice;
+
+        string itemName;
+        switch (choice) {
+        case 1:
+            itemName = "Меч";
+            break;
+        case 2:
+            itemName = "Верёвка";
+            break;
+        case 3:
+            itemName = "Зажигалка";
+            break;
+        case 4:
+            itemName = "Спички";
+            break;
+        case 5:
+            shopping = false;
+            return;
+        default:
+            cout << "Неверный выбор!\n";
+            this_thread::sleep_for(chrono::nanoseconds(2000000000));
+            continue;
+        }
+
+        if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+            cout << "\n" << "Вы купили " << itemName << "\n";
+            this_thread::sleep_for(chrono::nanoseconds(2000000000));
+        } else {
+            cout << "\n" << "Недостаточно монет или предмет не найден\n";
+            this_thread::sleep_for(chrono::nanoseconds(2000000000));
+        }
+    }
+}
+//
+//Говнокод off
 
 int main() {
-    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "ru_RU");
     int vibor_igroka, vibor_igroka2, vibor_igroka3, vibor_igroka4, vibor_igroka5=0, health, atk, enemyhealth, fight,money=0;
     int r;//нужен только для for
+    Inventory playerInventory;
+    Shop gameShop;
+    int playerCoins = 0;
+    gameShop.initializeItems();
     atk = 50;
     r=0;
     for (r = 0; r < 1; r++) {
@@ -266,7 +464,8 @@ int main() {
                             cin >> vibor_igroka2;
                         } while (vibor_igroka2 != 1 && vibor_igroka2 != 2);
                         if (vibor_igroka2 == 1) {
-                            vibor_igroka2 = 2;//ДОБАВТЕ МАГАЗИН С СОБАКОЙ
+                            manageShop(gameShop, playerInventory, playerCoins); //ДОБАВИЛ МАГАЗИН С СОБАКОЙ
+                            vibor_igroka2 == 2;
                         }
                         if (vibor_igroka2 == 2) {
                            
@@ -353,6 +552,8 @@ int main() {
                                         cout << "|____________________________________________|\n";
                                         cin >> vibor_igroka2;
                                     } while (vibor_igroka2 != 1 && vibor_igroka2 != 2);
+                                    if (vibor_igroka2 == 1)
+                                        manageShop(gameShop, playerInventory, playerCoins);
                                 }
                                 if (vibor_igroka2 == 2) {
                                     do {
@@ -638,7 +839,7 @@ int main() {
                                         this_thread::sleep_for(chrono::nanoseconds(3000000000));
                                     }
                                     if (vibor_igroka2 == 1) {
-                                        money = money + 500;
+                                        money = playerCoins + 500;
                                         do {
                                             
                                             cout << "______________________________________________\n";
@@ -661,9 +862,15 @@ int main() {
                                             cout << "| удача и вы увидели собаку альфреда,он стоял|\n";
                                             cout << "| и торговал чем-то, вы решили зайти к нему  |\n";
                                             cout << "| купить что-нибуть                          |\n";
-                                            cout << "|                                            |\n";//СДЕЛАТЬ ТОРГОВЛЮ С АЛЬФРЕДОМ И ПОКА ПЕРСОНАЖ НЕ КУПИТ МЕЧ И ЗАЖИГАЛКУ/СПИЧКИ НЕ ПУСТИТЬ ДАЛЬШЕ
-                                            cout << "| |1|продолжить                              |\n";
                                             cout << "|____________________________________________|\n";
+                                            void proceedWithStory(Inventory& playerInventory, Shop& gameShop, int& playerCoins); {
+                                                while (!hasRequiredItems(playerInventory)) {
+                                                    cout << "Для продолжения вам нужно купить меч и спички или зажигалку.\n";
+                                                    manageShop(gameShop, playerInventory, playerCoins);
+                                                }
+                                                cout << "Теперь у вас есть необходимые предметы для продолжения.\n";
+                                            }
+                                            cout << "1. продолжить\n";
                                             cin >> vibor_igroka2;
                                         } while (vibor_igroka2 != 1);
                                     }
@@ -1332,186 +1539,7 @@ int main() {
                     cout << "| <поздравляю вас стив, вы выйграли главный  |\n";
                     cout << "| приз нашей игры>....                       |\n";
                     cout << "|____________________________________________|\n";
-                    this_thread::sleep_for(chrono::nanoseconds(10000000000));
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "______________________________________________\n";
-                    cout << "|              THE END!                      |\n";
-                    cout << "|____________________________________________|\n";
-                    this_thread::sleep_for(chrono::nanoseconds(2000000000));
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "\n";
-                    cout << "______________________________________________\n";
-                    cout << "|                  ТИТРЫ                     |\n";
-                    cout << "| СЮЖЕТ,ДИАЛОГИ,ДЕНЬГИ-СИЛИННИК ВЛАД         |\n";
-                    cout << "| ХАРАКТЕРИСТИКИ,БОИ-АНДРЕЕНКОВ АЛЕКСАНДР    |\n";
-                    cout << "|                                            |\n";
-                    cout << "| СПАСИБО ЗА ИГРУ! ПРОДОЛЖЕНИЕ СЛЕДУЕТ ЕСЛИ  |\n";
-                    cout << "| БУДУТ СПОНСОРЫ!(поставте 12 )              |\n";
-                    cout << "|____________________________________________|\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    this_thread::sleep_for(chrono::nanoseconds(500000000));
-                    cout << "\n";
-                    return 0;
+                    break;
                 }
                 if (vibor_igroka == 2) {
                     do {
@@ -1541,189 +1569,9 @@ int main() {
                         cout << "| вам удалось убежать от всех проблем, но это|\n";
                         cout << "| уже совсем другая история...               |\n";
                         cout << "|____________________________________________|\n";
-                        this_thread::sleep_for(chrono::nanoseconds(5000000000));
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "______________________________________________\n";
-                        cout << "|              THE END!                      |\n";
-                        cout << "|____________________________________________|\n";
-                        this_thread::sleep_for(chrono::nanoseconds(2000000000));
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "______________________________________________\n";
-                        cout << "|                  ТИТРЫ                     |\n";
-                        cout << "| СЮЖЕТ,ДИАЛОГИ,ДЕНЬГИ-СИЛИННИК ВЛАД         |\n";
-                        cout << "| ХАРАКТЕРИСТИКИ,БОИ-АНДРЕЕНКОВ АЛЕКСАНДР    |\n";
-                        cout << "|                                            |\n";
-                        cout << "| СПАСИБО ЗА ИГРУ! ПРОДОЛЖЕНИЕ СЛЕДУЕТ ЕСЛИ  |\n";
-                        cout << "| БУДУТ СПОНСОРЫ!(поставте 12 )              |\n";
-                        cout << "|____________________________________________|\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        return 0;
+                        break;
                     }
-                }
-                if (vibor_igroka == 4) {
+                    if (vibor_igroka == 4) {
                         cout << "______________________________________________\n";
                         cout << "| вы спасли обоих убив колдуна, но перед     |\n";
                         cout << "| смертью колдун забрал у вас и у стива все  |\n";
@@ -1735,8 +1583,8 @@ int main() {
                         vibor_igroka3 = 0;
                         vibor_igroka4 = 0;
                         vibor_igroka5 = 1;
-                }
-                if (vibor_igroka5 == 1) {
+                    }
+                    if (vibor_igroka5 == 1) {
                         do {
                             cout << "______________________________________________\n";
                             cout << "| в аду вы встречаете харона, преспешника    |\n";
@@ -1746,9 +1594,9 @@ int main() {
                             cout << "|                                            |\n";
                             cout << "|____________________________________________|\n";
                             cin >> vibor_igroka5;
-                        }while (vibor_igroka5 != 1);
-                }
-                if (vibor_igroka == 3) {
+                        } while (vibor_igroka5 != 1);
+                    }
+                    if (vibor_igroka == 3) {
                         cout << "______________________________________________\n";
                         cout << "| выстрелив в себя, стив как второй участник |\n";
                         cout << "| побеждает и выигрывает главный приз игры   |\n";
@@ -1756,189 +1604,11 @@ int main() {
                         cout << "| со своей семьей ни в чем себе не отказывая,|\n";
                         cout << "| но каждый день вспоминает о вас...         |\n";
                         cout << "|____________________________________________|\n";
-                        this_thread::sleep_for(chrono::nanoseconds(10000000000));
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "______________________________________________\n";
-                        cout << "|              THE END!                      |\n";
-                        cout << "|____________________________________________|\n";
-                        this_thread::sleep_for(chrono::nanoseconds(2000000000));
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "\n";
-                        cout << "______________________________________________\n";
-                        cout << "|                  ТИТРЫ                     |\n";
-                        cout << "| СЮЖЕТ,ДИАЛОГИ,ДЕНЬГИ-СИЛИННИК ВЛАД         |\n";
-                        cout << "| ХАРАКТЕРИСТИКИ,БОИ-АНДРЕЕНКОВ АЛЕКСАНДР    |\n";
-                        cout << "|                                            |\n";
-                        cout << "| СПАСИБО ЗА ИГРУ! ПРОДОЛЖЕНИЕ СЛЕДУЕТ ЕСЛИ  |\n";
-                        cout << "| БУДУТ СПОНСОРЫ!(поставте 12 )              |\n";
-                        cout << "|____________________________________________|\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        this_thread::sleep_for(chrono::nanoseconds(500000000));
-                        cout << "\n";
-                        return 0;
+                        break;
                     }
                 }
             }
+        }
                     
                 /////////////
         if (vibor_igroka5 == 1) {//попасть в ад
@@ -3129,34 +2799,6 @@ int main() {
                                 cout << "| броня тут же раскололась на 2 части        |\n";
                                 cout << "|____________________________________________|\n";
                                 this_thread::sleep_for(chrono::nanoseconds(5000000000));
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
-                                cout << "\n";
                                 cout << "\n";
                                 cout << "\n";
                                 cout << "\n";
