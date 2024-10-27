@@ -4524,7 +4524,7 @@ int main() {
                         //БОЙ С АИДОМ
                         health = 1000;
                         enemyhealth = 3000;
-                         int a = 0;
+                        a = 0;
                         for (int i = 0; i < enemyhealth;) {
                            
                             if (health <= 0) {
