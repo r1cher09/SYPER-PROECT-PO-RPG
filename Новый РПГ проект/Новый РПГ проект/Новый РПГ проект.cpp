@@ -1,4 +1,4 @@
-﻿// РПГ ИГРА.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+// РПГ ИГРА.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 #include <iostream>
 #include <iomanip>
@@ -76,6 +76,7 @@ void paths(int a, int b, int defen, int atk, int erud) {
     }
 
 }
+
 //Говнокод on
 //Механика нвентаря
 struct Item {
@@ -110,7 +111,6 @@ void Inventory::viewInventory() const {
 bool hasRequiredItems(const Inventory& playerInventory) { //Проверка на наличие предметов
     bool hasSword = false;
     bool hasMatchesOrLighter = false;
-
     for (const auto& item : playerInventory.items) {
         if (item.name == "Меч") {
             hasSword = true;
@@ -119,7 +119,6 @@ bool hasRequiredItems(const Inventory& playerInventory) { //Проверка н�
             hasMatchesOrLighter = true;
         }
     }
-
     return hasSword && hasMatchesOrLighter;
 }
 //
@@ -161,10 +160,15 @@ bool Shop::buyItem(const string& itemName, Inventory& playerInventory, int& play
 }
 
 void Shop::initializeItems() {
-    addItem({ "Меч", "Острый меч для сражений", 50 });
-    addItem({ "Верёвка", "Крепкая верёвка длиной 10 метров", 20 });
+    addItem({ "Меч", "Острый меч для сражений", 150 });
     addItem({ "Зажигалка", "Зажигалка для разведения огня", 10 });
     addItem({ "Спички", "Пачка спичек", 5 });
+    addItem({ "Зуб мангуста", "Редкий зуб мангуста", 500 });
+    addItem({ "Шоколадный меч", "Меч, сделанный из шоколада", 1000 });
+    addItem({ "Рыба меч", "Рыба в форме меча", 1500 });
+    addItem({ "Эль друин", "Магический эль", 2000 });
+    addItem({ "Палка", "Простая палка", 1 });
+    addItem({ "Кладенец", "Легендарное оружие", 2200 });
 }
 //
 
@@ -173,9 +177,9 @@ void Shop::initializeItems() {
 void manageInventory(Inventory& playerInventory, int& playerCoins) {
     bool running = true;
     while (running) {
-        cout << "Ваши монеты: " << playerCoins << "\n";
+        cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
         cout << "1. Посмотреть инвентарь\n";
-        cout << "2. Добавить предмет в инвентарь\n";
+        cout << "2. Добавить предмет в инвентарь (Чит)\n";
         cout << "3. Удалить предмет из инвентаря\n";
         cout << "4. Вернуться в главное меню\n";
         cout << "Выберите действие: ";
@@ -216,48 +220,66 @@ void manageInventory(Inventory& playerInventory, int& playerCoins) {
     }
 }
 
-void checkForInventoryKey(Inventory& playerInventory, int& playerCoins) {
-    if (_kbhit()) { // Проверяем, была ли нажата клавиша
-        char ch = _getch(); // Получаем нажатую клавишу
-        if (ch == 'c' || ch == 'C') { // Проверяем, была ли нажата клавиша "c" или "C"
-            manageInventory(playerInventory, playerCoins); // Открываем инвентарь
-        }
-    }
-}
-
 //Магазин
 void manageShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
     bool shopping = true;
     while (shopping) {
-        cout << "Ваши монеты: " << playerCoins << "\n";
+        cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
         gameShop.viewShop();
-        cout << "Введите номер предмета для покупки:\n";
+        cout << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n" << endl;
         cout << "1. Меч\n";
-        cout << "2. Верёвка\n";
-        cout << "3. Зажигалка\n";
-        cout << "4. Спички\n";
-        cout << "5. Выход\n";
+        cout << "2. Зажигалка\n";
+        cout << "3. Спички\n";
+        cout << "4. Зуб мангуста\n";
+        cout << "5. Шоколадный меч\n";
+        cout << "6. Рыба меч\n";
+        cout << "7. Эль друин\n";
+        cout << "8. Палка\n";
+        cout << "9. Кладенец\n";
+        cout << "10. Выход\n";
 
-        int choice;
-        cin >> choice;
+        string input;
+        cin >> input;
+
+        if (input == "c" || input == "C" || input == "с" || input == "С") {
+            manageInventory(playerInventory, playerCoins);
+            continue; // Возвращаемся в магазин после закрытия инвентаря
+        }
+
+        int choice = atoi(input.c_str()); // Преобразуем строку в число для выбора предмета
+
         string itemName;
-
         switch (choice) {
         case 1:
             itemName = "Меч";
             break;
         case 2:
-            itemName = "Верёвка";
-            break;
-        case 3:
             itemName = "Зажигалка";
             break;
-        case 4:
+        case 3:
             itemName = "Спички";
             break;
+        case 4:
+            itemName = "Зуб мангуста";
+            break;
         case 5:
+            itemName = "Шоколадный меч";
+            break;
+        case 6:
+            itemName = "Рыба меч";
+            break;
+        case 7:
+            itemName = "Эль друин";
+            break;
+        case 8:
+            itemName = "Палка";
+            break;
+        case 9:
+            itemName = "Кладенец";
+            break;
+        case 10:
             shopping = false;
-            return; // Выходим из функции
+            return;
         default:
             cout << "Неверный выбор!\n";
             continue;
@@ -269,18 +291,149 @@ void manageShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
         else {
             cout << "Недостаточно монет или предмет не найден\n";
         }
-        checkForInventoryKey(playerInventory, playerCoins); // Проверяем нажатие клавиши "c"
     }
 }
 //
+
+void temporaryFileShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
+    bool shopping = true;
+    gameShop.addItem({ "Напильник", "Инструмент для распиливания металла", 50 }); // Добавляем только напильник
+    while (shopping) {
+        cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+        cout << "\n" << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n";
+        cout << "1. Напильник\n";
+        cout << "2. Выход\n";
+
+        string input;
+        cin >> input;
+
+        if (input == "c" || input == "C" || input == "с" || input == "С") {
+            manageInventory(playerInventory, playerCoins);
+            continue;
+        }
+
+        int choice = atoi(input.c_str());
+        string itemName;
+        switch (choice) {
+        case 1:
+            itemName = "Напильник";
+            break;
+        case 2:
+            shopping = false;
+            return;
+        default:
+            cout << "Неверный выбор!\n";
+            continue;
+        }
+
+        if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+            cout << "Вы купили " << itemName << "\n";
+        }
+        else {
+            cout << "Недостаточно монет или предмет не найден\n";
+        }
+    }
+}
+
+void specialShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
+    gameShop.addItem({ "Убийца Богов 228", "Особый предмет", 1000000000 });
+    bool shopping = true;
+    while (shopping) {
+        cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+        gameShop.viewShop();
+        cout << "\n" << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n";
+        cout << "1. Меч\n";
+        cout << "2. Зажигалка\n";
+        cout << "3. Спички\n";
+        cout << "4. Зуб мангуста\n";
+        cout << "5. Шоколадный меч\n";
+        cout << "6. Рыба меч\n";
+        cout << "7. Эль друин\n";
+        cout << "8. Палка\n";
+        cout << "9. Кладенец\n";
+        cout << "11. Убийца Богов 228\n";
+        cout << "12. Выход\n";
+
+        string input;
+        cin >> input;
+
+        if (input == "c" || input == "C" || input == "с" || input == "С") {
+            manageInventory(playerInventory, playerCoins);
+            continue;
+        }
+
+        int choice = atoi(input.c_str());
+        string itemName;
+
+        switch (choice) {
+        case 1:
+            itemName = "Меч";
+            break;
+        case 2:
+            itemName = "Зажигалка";
+            break;
+        case 3:
+            itemName = "Спички";
+            break;
+        case 4:
+            itemName = "Зуб мангуста";
+            break;
+        case 5:
+            itemName = "Шоколадный меч";
+            break;
+        case 6:
+            itemName = "Рыба меч";
+            break;
+        case 7:
+            itemName = "Эль друин";
+            break;
+        case 8:
+            itemName = "Палка";
+            break;
+        case 9:
+            itemName = "Кладенец";
+            break;
+        case 10:
+            itemName = "Убийца Богов 228";
+            break;
+        case 11:
+            shopping = false;
+            return;
+        default:
+            cout << "Неверный выбор!\n";
+            continue;
+        }
+
+        if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+            cout << "Вы купили " << itemName << "\n";
+        }
+        else {
+            cout << "Недостаточно монет или предмет не найден\n";
+        }
+    }
+}
+
 void proceedWithStory(Inventory& playerInventory, Shop& gameShop, int& playerCoins);
 void proceedWithStory(Inventory& playerInventory, Shop& gameShop, int& playerCoins) {
     while (!hasRequiredItems(playerInventory)) {
-        cout << "Для продолжения вам нужно купить меч и спички или зажигалку.\n";
+        cout << "\n" << "Для продолжения вам нужно купить меч и спички или зажигалку.\n";
+        this_thread::sleep_for(chrono::nanoseconds(2000000000));
         manageShop(gameShop, playerInventory, playerCoins);
     }
-    cout << "Теперь у вас есть необходимые предметы для продолжения.\n";
+    cout << "\n" << "Теперь у вас есть необходимые предметы для продолжения.\n";
+    this_thread::sleep_for(chrono::nanoseconds(1500000000));
 }
+
+bool hasFile(Inventory& playerInventory);
+bool hasFile(Inventory& playerInventory) {
+    for (const auto& item : playerInventory.items) {
+        if (item.name == "Напильник") {
+            return true;
+        }
+    }
+    return false;
+}
+//
 //Говнокод off
 
 int main() {
@@ -1862,6 +2015,11 @@ int main() {
                 } while (vibor_igroka != 1 && vibor_igroka != 2);
             }
             if (vibor_igroka == 1) {
+                if (!hasFile(playerInventory)) {
+                    cout << "\n" << "Для тихого побега вам нужен напильник.\n";
+                    this_thread::sleep_for(chrono::nanoseconds(1200000000));
+                    temporaryFileShop(gameShop, playerInventory, playerCoins);
+                }
                 cout << "______________________________________________\n";
                 cout << "| вы через окно с решеткой попытались позвать|\n";
                 cout << "| альфреда.. ии о чудо он услышал.           |\n";
@@ -1950,7 +2108,10 @@ int main() {
                         cin >> vibor_igroka2;
                     } while (vibor_igroka != 1 && vibor_igroka != 2);
                 }
-
+                if (vibor_igroka == 1) {
+                    manageShop(gameShop, playerInventory, playerCoins);
+                    vibor_igroka = 1;
+                }
                 if (vibor_igroka2 == 2) {
                     vibor_igroka = 0;
                     vibor_igroka2 = 0;
@@ -2302,7 +2463,7 @@ int main() {
                         cin >> vibor_igroka5;
                     } while (vibor_igroka5 != 1 && vibor_igroka5 != 2);
                     if (vibor_igroka5 == 1) {
-                        manageShop(gameShop, playerInventory, playerCoins); //Добавить в магазин меч за 1000000000 "Убийца Богов 228"
+                        specialShop(gameShop, playerInventory, playerCoins); //Добавить в магазин меч за 1000000000 "Убийца Богов 228"
                         vibor_igroka = 0;
                         vibor_igroka2 = 0;
                         vibor_igroka3 = 0;
