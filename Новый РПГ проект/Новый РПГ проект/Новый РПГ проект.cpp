@@ -351,8 +351,8 @@ void specialShop(Shop& gameShop, Inventory& playerInventory, int& playerCoins) {
         cout << "7. Эль друин\n";
         cout << "8. Палка\n";
         cout << "9. Кладенец\n";
-        cout << "11. Убийца Богов 228\n";
-        cout << "12. Выход\n";
+        cout << "10. Убийца Богов 228\n";
+        cout << "11. Выход\n";
 
         string input;
         cin >> input;
