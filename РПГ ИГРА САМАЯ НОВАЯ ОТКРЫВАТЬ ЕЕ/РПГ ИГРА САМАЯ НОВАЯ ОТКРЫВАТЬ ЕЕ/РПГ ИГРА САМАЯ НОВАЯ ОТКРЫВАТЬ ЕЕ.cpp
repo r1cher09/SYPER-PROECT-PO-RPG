@@ -10,73 +10,6 @@
 #include <conio.h>
 using namespace std;
 
-void paths(int a, int b, int defen, int atk, int erud) {
-    cout << "______________________________________________\n";
-    cout << "    Открыть меню путей прокачки?              \n";
-    cout << "  1) Нет                      2) Да           \n";
-    cout << "______________________________________________\n";
-    cin >> a;
-    if (a == 1) {
-        cout << "\n";
-    }
-    if (a == 2) {
-
-        cout << "______________________________________________\n";
-        cout << "            Кол-во очков:                     \n";
-        cout << b << "\n";
-        if (b == 0) {
-            cout << "     Вам не хватило очков для прокачки.       \n";
-            cout << "   Очки можно получить, сходив в Оптику.      \n";
-            this_thread::sleep_for(chrono::nanoseconds(3000000000));
-            cout << "          Да ладно, смешно же.                \n";
-            cout << "   Очки можно получить  по ходу сюжета.       \n";
-            cout << "  После выполнения заданий и побед в боях     \n";
-            cout << "  вы будете получать по одному очку.          \n";
-            cout << "______________________________________________\n";
-            this_thread::sleep_for(chrono::nanoseconds(3000000000));
-            return;
-
-        }
-        cout << "             1) ЗАЩИТА                       \n";
-        cout << "  2)нАПАДЕНИЕ          3)ЭРУДИЦИЯ             \n";
-        cout << "                                              \n";
-        cout << "______________________________________________\n";
-        cin >> a;
-
-        if (a == 1) {
-            defen = defen + 20;
-            b--;
-            cout << "             ЗАЩИТА равна:                    \n";
-            cout << defen << "\n";
-            cout << "             АТАКА равна:                     \n";
-            cout << atk << "\n";
-            cout << "             ЭРУДИЦИЯ равна:                  \n";
-            cout << erud << "\n";
-        }
-        if (a == 2) {
-            atk = atk + 15;
-            b--;
-            cout << "             ЗАЩИТА равна:                    \n";
-            cout << defen << "\n";
-            cout << "             АТАКА равна:                     \n";
-            cout << atk << "\n";
-            cout << "             ЭРУДИЦИЯ равна:                  \n";
-            cout << erud << "\n";
-        }
-        if (a == 3) {
-            erud = erud + 1;
-            b--;
-            cout << "             ЗАЩИТА равна:                    \n";
-            cout << defen << "\n";
-            cout << "             АТАКА равна:                     \n";
-            cout << atk << "\n";
-            cout << "             ЭРУДИЦИЯ равна:                  \n";
-            cout << erud << "\n";
-        }
-    }
-
-}
-
 //Говнокод on
 //Механика нвентаря
 struct Item {
@@ -1231,7 +1164,7 @@ int main() {
                                 if (vibor_igroka2 == 2) {
                                     health = 1000;
                                     enemyhealth = 500;
-                                    int a = 0;
+                                    a = 0;
                                     for (int i = 0; i < enemyhealth;) {
 
                                         if (health <= 0) {
@@ -1257,8 +1190,8 @@ int main() {
                                             enemyhealth = enemyhealth - 10;
                                             a++;
                                         }
-                                        cout << "|        Ваше оставшееся HP = " << health << "             |\n";
-                                        cout << "|        Оставшееся HP врага = " << enemyhealth << "            |\n";
+                                        cout << "|        Ваше оставшееся HP = " << health << "            |\n";
+                                        cout << "|        Оставшееся HP врага = " << enemyhealth << "           |\n";
                                     }
                                     b++;
                                     cout << "вы убили волка и продолжили ваш путь\n";
@@ -1442,7 +1375,7 @@ int main() {
                     cin >> vibor_igroka;
                     health = 1000;
                     enemyhealth = 1000;
-                    int a = 0;
+                    a = 0;
                     for (int i = 0; i < enemyhealth;) {
 
                         if (health <= 0) {
@@ -2140,7 +2073,7 @@ int main() {
                 cout << "|____________________________________________|\n";
                 health = 1000;
                 enemyhealth = 1500;
-                int a = 0;
+                a = 0;
                 for (int i = 0; i < enemyhealth;) {
 
                     if (health <= 0) {
@@ -4089,7 +4022,7 @@ int main() {
                     cin >> vibor_igroka;
                     health = 1000;
                     enemyhealth = 600;
-                    int a = 0;
+                    a = 0;
                     for (int i = 0; i < enemyhealth;) {
 
                         if (health <= 0) {
@@ -4173,7 +4106,7 @@ int main() {
                     //ДРАКА С МИНАТОСОМ
                     health = 1000;
                     enemyhealth = 1600;
-                    int a = 0;
+                    a = 0;
                     for (int i = 0; i < enemyhealth;) {
 
                         if (health <= 0) {
@@ -4291,7 +4224,7 @@ int main() {
                     //бой с РАДАМАНТОМ
                     health = 1000;
                     enemyhealth = 2600;
-                    int a = 0;
+                    a = 0;
                     for (int i = 0; i < enemyhealth;) {
 
                         if (health <= 0) {
@@ -4420,7 +4353,7 @@ int main() {
                         //БОЙ С ЦЕРБЕРОМ
                         health = 1000;
                         enemyhealth = 2500;
-                        int a = 0;
+                        a = 0;
                         for (int i = 0; i < enemyhealth;) {
 
                             if (health <= 0) {
@@ -4759,7 +4692,7 @@ int main() {
             vibor_igroka = 1;//БОЙ С АИДОМ
             health = 1000;
             enemyhealth = 3000;
-            int a = 0;
+            a = 0;
             for (int i = 0; i < enemyhealth;) {
 
                 if (health <= 0) {
@@ -4820,7 +4753,7 @@ int main() {
                             cout << "|____________________________________________|\n";
                             health = 1000;
                             enemyhealth = 7000;
-                            int a = 0;
+                            a = 0;
                             for (int i = 0; i < enemyhealth;) {
 
                                 if (health <= 0) {
@@ -5086,7 +5019,7 @@ int main() {
                     cout << "|____________________________________________|\n";
                     health = 1000;
                     enemyhealth = 3000;
-                    int a = 0;
+                    a = 0;
                     for (int i = 0; i < enemyhealth;) {
 
                         if (health <= 0) {
@@ -5203,7 +5136,7 @@ int main() {
                     cout << "|____________________________________________|\n";
                     health = 1000;
                     enemyhealth = 4000;
-                    int a = 0;
+                    a = 0;
                     for (int i = 0; i < enemyhealth;) {
 
                         if (health <= 0) {
@@ -5284,7 +5217,7 @@ int main() {
                     cout << "|____________________________________________|\n";
                     health = 1000;
                     enemyhealth = 7000;
-                    int a = 0;
+                    a = 0;
                     for (int i = 0; i < enemyhealth;) {
 
                         if (health <= 0) {
