@@ -1077,9 +1077,10 @@ int main() {
                                 }
                                 if (vibor_igroka2 == 2) {
                                     health = 1000;
-                                    enemyhealth = 500;
+                                    enemyhealth = 500;   
+                                     int a = 0;
                                     for (int i = 0; i < enemyhealth;) {
-                                        int a = 0;
+                                       
                                         if (health <= 0) {
                                             cout << "|           Вы погибли.                    |\n";
                                             return 0;
@@ -1288,8 +1289,9 @@ int main() {
                     cin >> vibor_igroka;
                     health = 1000;
                     enemyhealth = 1000;
+                     int a = 0;
                     for (int i = 0; i < enemyhealth;) {
-                        int a = 0;
+                        
                         if (health <= 0) {
                             cout << "|           Вы погибли.                    |\n";
                             return 0;
@@ -1977,8 +1979,9 @@ int main() {
                 cout << "|____________________________________________|\n";
                 health = 1000;
                 enemyhealth = 1500;
+                 int a = 0;
                 for (int i = 0; i < enemyhealth;) {
-                    int a = 0;
+                    
                     if (health <= 0) {
                         cout << "|           Вы погибли.                    |\n";
                         return 0;
@@ -3925,8 +3928,9 @@ int main() {
                     cin >> vibor_igroka;
                     health = 1000;
                     enemyhealth = 600;
+                     int a = 0;
                     for (int i = 0; i < enemyhealth;) {
-                        int a = 0;
+                       
                         if (health <= 0) {
                             cout << "|           Вы погибли.                    |\n";
                             return 0;
@@ -4008,8 +4012,9 @@ int main() {
                     //ДРАКА С МИНАТОСОМ
                     health = 1000;
                     enemyhealth = 1600;
+                     int a = 0;
                     for (int i = 0; i < enemyhealth;) {
-                        int a = 0;
+                        
                         if (health <= 0) {
                             cout << "|           Вы погибли.                    |\n";
                             return 0;
@@ -4125,8 +4130,9 @@ int main() {
                     //бой с РАДАМАНТОМ
                     health = 1000;
                     enemyhealth = 2600;
+                     int a = 0;
                     for (int i = 0; i < enemyhealth;) {
-                        int a = 0;
+                        
                         if (health <= 0) {
                             cout << "|           Вы погибли.                    |\n";
                             return 0;
@@ -4253,8 +4259,9 @@ int main() {
                         //БОЙ С ЦЕРБЕРОМ
                         health = 1000;
                         enemyhealth = 2500;
+                         int a = 0;
                         for (int i = 0; i < enemyhealth;) {
-                            int a = 0;
+                            
                             if (health <= 0) {
                                 cout << "|           Вы погибли.                    |\n";
                                 return 0;
@@ -4356,8 +4363,9 @@ int main() {
                         //БОЙ С АИДОМ
                         health = 1000;
                         enemyhealth = 3000;
+                         int a = 0;
                         for (int i = 0; i < enemyhealth;) {
-                            int a = 0;
+                           
                             if (health <= 0) {
                                 cout << "|           Вы погибли.                    |\n";
                                 return 0;
@@ -4590,8 +4598,9 @@ int main() {
             vibor_igroka = 1;//БОЙ С АИДОМ
             health = 1000;
             enemyhealth = 3000;
+             int a = 0;
             for (int i = 0; i < enemyhealth;) {
-                int a = 0;
+                
                 if (health <= 0) {
                     cout << "|           Вы погибли.                    |\n";
                     return 0;
@@ -4608,7 +4617,7 @@ int main() {
                     cout << "|    Вы бъёте Аида,                          |\n";
                     cout << "|                   но получаете порез.      |\n";
                     enemyhealth = enemyhealth - atk;
-                    health = health - 275 + defence;
+                    health = health - 580 + defence;
                 }
                 if (fight == 2) {
                     cout << "|    Вы отражаете удар Аида,             |\n";
@@ -4648,8 +4657,41 @@ int main() {
                             cout << "|                                            |\n";
                             cout << "| |1|напасть!                                |\n";
                             cout << "|____________________________________________|\n";
+                            health = 1000;
+                    enemyhealth = 7000;
+                     int a = 0;
+                    for (int i = 0; i < enemyhealth;) {
+                        
+                        if (health <= 0) {
+                            cout << "|           Вы погибли.                    |\n";
+                            return 0;
+                        }
+                        if (a == 15 + erud) {
+                            cout << "|   Ваша защита была пробита              |\n";
+                            cout << "|                и Зевс убил вас.         |\n";
+                            return 0;
+                        }
+                        cout << "|   Молнии стреляют во всех направлениях.    |\n";
+                        cout << "|    1) Атаковать?     2)Защищаться?         |\n";
+                        cin >> fight;
+                        if (fight == 1) {
+                            cout << "|    Вы бъёте Зевса,                          |\n";
+                            cout << "|              но получаете удар током.       |\n";
+                            enemyhealth = enemyhealth - atk;
+                            health = health - 705 + defence;
+                        }
+                        if (fight == 2) {
+                            cout << "|    Вы отражаете молнию мечом,              |\n";
+                            cout << "|             и, пользуясь моментом, бьёте.  |\n";
+                            enemyhealth = enemyhealth - 100;
+                            a++;
+                        }
+                        cout << "|        Ваше оставшееся HP = " << health << "             |\n";
+                        cout << "|        Оставшееся HP врага = " << enemyhealth << "            |\n";
+                    }
                             cin >> vibor_igroka;
                         } while (vibor_igroka != 1);//БОЙ С ЗЕВСОМ
+                        
                         if (vibor_igroka == 1) {
                             cout << "______________________________________________\n";
                             cout << "| вы убили аида и зевса, но на этом не решили|\n";
@@ -4883,8 +4925,9 @@ int main() {
                     cout << "|____________________________________________|\n";
                     health = 1000;
                     enemyhealth = 3000;
+                     int a = 0;
                     for (int i = 0; i < enemyhealth;) {
-                        int a = 0;
+                        
                         if (health <= 0) {
                             cout << "|           Вы погибли.                    |\n";
                             return 0;
@@ -4901,7 +4944,7 @@ int main() {
                             cout << "|    Вы бъёте Аида,                          |\n";
                             cout << "|                   но получаете порез.      |\n";
                             enemyhealth = enemyhealth - atk;
-                            health = health - 275 + defence;
+                            health = health - 600 + defence;
                         }
                         if (fight == 2) {
                             cout << "|    Вы отражаете удар Аида,             |\n";
@@ -4999,8 +5042,9 @@ int main() {
                     cout << "|____________________________________________|\n";
                     health = 1000;
                     enemyhealth = 4000;
+                     int a = 0;
                     for (int i = 0; i < enemyhealth;) {
-                        int a = 0;
+                        
                         if (health <= 0) {
                             cout << "|           Вы погибли.                    |\n";
                             return 0;
@@ -5017,7 +5061,7 @@ int main() {
                             cout << "|    Вы бъёте Аида,                          |\n";
                             cout << "|                   но получаете порез.      |\n";
                             enemyhealth = enemyhealth - atk;
-                            health = health - 275 + defence;
+                            health = health - 645 + defence;
                         }
                         if (fight == 2) {
                             cout << "|    Вы отражаете удар Аида,             |\n";
@@ -5065,6 +5109,7 @@ int main() {
                     cout << "|                                            |\n";
                     cout << "| |1|да!я вызываю тебя на бой                |\n";
                     cout << "|____________________________________________|\n";
+                    
                     cin >> vibor_igroka;
                 } while (vibor_igroka != 1);
             }
@@ -5076,6 +5121,38 @@ int main() {
                     cout << "|                                            |\n";//БОЙ С ЗЕВСОМ
                     cout << "| |1|начать бой                              |\n";
                     cout << "|____________________________________________|\n";
+                    health = 1000;
+                    enemyhealth = 7000;
+                     int a = 0;
+                    for (int i = 0; i < enemyhealth;) {
+                        
+                        if (health <= 0) {
+                            cout << "|           Вы погибли.                    |\n";
+                            return 0;
+                        }
+                        if (a == 15 + erud) {
+                            cout << "|   Ваша защита была пробита              |\n";
+                            cout << "|                и Зевс убил вас.         |\n";
+                            return 0;
+                        }
+                        cout << "|   Молнии стреляют во всех направлениях.    |\n";
+                        cout << "|    1) Атаковать?     2)Защищаться?         |\n";
+                        cin >> fight;
+                        if (fight == 1) {
+                            cout << "|    Вы бъёте Зевса,                          |\n";
+                            cout << "|              но получаете удар током.       |\n";
+                            enemyhealth = enemyhealth - atk;
+                            health = health - 705 + defence;
+                        }
+                        if (fight == 2) {
+                            cout << "|    Вы отражаете молнию мечом,              |\n";
+                            cout << "|             и, пользуясь моментом, бьёте.  |\n";
+                            enemyhealth = enemyhealth - 100;
+                            a++;
+                        }
+                        cout << "|        Ваше оставшееся HP = " << health << "             |\n";
+                        cout << "|        Оставшееся HP врага = " << enemyhealth << "            |\n";
+                    }
                 } while (vibor_igroka != 1);
             }
             if (vibor_igroka == 1) {
