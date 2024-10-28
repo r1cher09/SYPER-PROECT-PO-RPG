@@ -703,7 +703,83 @@ int main() {
                         cin >> vibor_igroka2;
                     } while (vibor_igroka2 != 1 && vibor_igroka2 != 2);
                     if (vibor_igroka2 == 1) {
-                        manageShop(gameShop, playerInventory, playerCoins); //ДОБАВИЛ МАГАЗИН С СОБАКОЙ
+                        bool shopping = true;
+while (shopping) {
+    cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+    gameShop.viewShop();
+    cout << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n" << endl;
+    cout << "1. Меч\n";
+    cout << "2. Зажигалка\n";
+    cout << "3. Спички\n";
+    cout << "4. Зуб мангуста\n";
+    cout << "5. Шоколадный меч\n";
+    cout << "6. Рыба меч\n";
+    cout << "7. Эль друин\n";
+    cout << "8. Палка\n";
+    cout << "9. Кладенец\n";
+    cout << "10. Выход\n";
+
+    string input;
+    cin >> input;
+
+    if (input == "c" || input == "C" || input == "с" || input == "С") {
+        manageInventory(playerInventory, playerCoins);
+        continue; // Возвращаемся в магазин после закрытия инвентаря
+    }
+
+    int choice = atoi(input.c_str()); // Преобразуем строку в число для выбора предмета
+
+    string itemName;
+    switch (choice) {
+    case 1:
+        itemName = "Меч";
+        atk = atk + 20;
+        break;
+    case 2:
+        itemName = "Зажигалка";
+        break;
+    case 3:
+        itemName = "Спички";
+        break;
+    case 4:
+        itemName = "Зуб мангуста";
+        atk = atk + 50;
+        break;
+    case 5:
+        itemName = "Шоколадный меч";
+        atk = atk + 90;
+        break;
+    case 6:
+        itemName = "Рыба меч";
+        atk = atk + 120;
+        break;
+    case 7:
+        itemName = "Эль друин";
+        atk = atk + 180;
+        break;
+    case 8:
+        itemName = "Палка";
+        atk = atk + 1;
+        break;
+    case 9:
+        itemName = "Кладенец";
+        atk = atk + 200;
+        break;
+    case 10:
+        shopping = false;
+        break;
+    default:
+        cout << "Неверный выбор!\n";
+        continue;
+    }
+
+    if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+        cout << "Вы купили " << itemName << "\n";
+    }
+    else {
+        cout << "Недостаточно монет или предмет не найден\n";
+    }
+} //ДОБАВИЛ МАГАЗИН С СОБАКОЙ
                         vibor_igroka2 = 2;
                     }
                     if (vibor_igroka2 == 2) {
@@ -914,7 +990,83 @@ int main() {
                                     cin >> vibor_igroka2;
                                 } while (vibor_igroka2 != 1 && vibor_igroka2 != 2);
                                 if (vibor_igroka2 == 1)
-                                    manageShop(gameShop, playerInventory, playerCoins);
+                                    bool shopping = true;
+while (shopping) {
+    cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+    gameShop.viewShop();
+    cout << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n" << endl;
+    cout << "1. Меч\n";
+    cout << "2. Зажигалка\n";
+    cout << "3. Спички\n";
+    cout << "4. Зуб мангуста\n";
+    cout << "5. Шоколадный меч\n";
+    cout << "6. Рыба меч\n";
+    cout << "7. Эль друин\n";
+    cout << "8. Палка\n";
+    cout << "9. Кладенец\n";
+    cout << "10. Выход\n";
+
+    string input;
+    cin >> input;
+
+    if (input == "c" || input == "C" || input == "с" || input == "С") {
+        manageInventory(playerInventory, playerCoins);
+        continue; // Возвращаемся в магазин после закрытия инвентаря
+    }
+
+    int choice = atoi(input.c_str()); // Преобразуем строку в число для выбора предмета
+
+    string itemName;
+    switch (choice) {
+    case 1:
+        itemName = "Меч";
+        atk = atk + 20;
+        break;
+    case 2:
+        itemName = "Зажигалка";
+        break;
+    case 3:
+        itemName = "Спички";
+        break;
+    case 4:
+        itemName = "Зуб мангуста";
+        atk = atk + 50;
+        break;
+    case 5:
+        itemName = "Шоколадный меч";
+        atk = atk + 90;
+        break;
+    case 6:
+        itemName = "Рыба меч";
+        atk = atk + 120;
+        break;
+    case 7:
+        itemName = "Эль друин";
+        atk = atk + 180;
+        break;
+    case 8:
+        itemName = "Палка";
+        atk = atk + 1;
+        break;
+    case 9:
+        itemName = "Кладенец";
+        atk = atk + 200;
+        break;
+    case 10:
+        shopping = false;
+        break;
+    default:
+        cout << "Неверный выбор!\n";
+        continue;
+    }
+
+    if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+        cout << "Вы купили " << itemName << "\n";
+    }
+    else {
+        cout << "Недостаточно монет или предмет не найден\n";
+    }
+}
                                 vibor_igroka2 = 1;
                             }
                             if (vibor_igroka2 == 1) {
@@ -1837,7 +1989,83 @@ int main() {
                 } while (vibor_igroka != 1 && vibor_igroka != 2);
             }
             if (vibor_igroka == 1) {
-                manageShop(gameShop, playerInventory, playerCoins);
+                bool shopping = true;
+while (shopping) {
+    cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+    gameShop.viewShop();
+    cout << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n" << endl;
+    cout << "1. Меч\n";
+    cout << "2. Зажигалка\n";
+    cout << "3. Спички\n";
+    cout << "4. Зуб мангуста\n";
+    cout << "5. Шоколадный меч\n";
+    cout << "6. Рыба меч\n";
+    cout << "7. Эль друин\n";
+    cout << "8. Палка\n";
+    cout << "9. Кладенец\n";
+    cout << "10. Выход\n";
+
+    string input;
+    cin >> input;
+
+    if (input == "c" || input == "C" || input == "с" || input == "С") {
+        manageInventory(playerInventory, playerCoins);
+        continue; // Возвращаемся в магазин после закрытия инвентаря
+    }
+
+    int choice = atoi(input.c_str()); // Преобразуем строку в число для выбора предмета
+
+    string itemName;
+    switch (choice) {
+    case 1:
+        itemName = "Меч";
+        atk = atk + 20;
+        break;
+    case 2:
+        itemName = "Зажигалка";
+        break;
+    case 3:
+        itemName = "Спички";
+        break;
+    case 4:
+        itemName = "Зуб мангуста";
+        atk = atk + 50;
+        break;
+    case 5:
+        itemName = "Шоколадный меч";
+        atk = atk + 90;
+        break;
+    case 6:
+        itemName = "Рыба меч";
+        atk = atk + 120;
+        break;
+    case 7:
+        itemName = "Эль друин";
+        atk = atk + 180;
+        break;
+    case 8:
+        itemName = "Палка";
+        atk = atk + 1;
+        break;
+    case 9:
+        itemName = "Кладенец";
+        atk = atk + 200;
+        break;
+    case 10:
+        shopping = false;
+        break;
+    default:
+        cout << "Неверный выбор!\n";
+        continue;
+    }
+
+    if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+        cout << "Вы купили " << itemName << "\n";
+    }
+    else {
+        cout << "Недостаточно монет или предмет не найден\n";
+    }
+}
                 cout << "вы продолжили путь\n";
                 vibor_igroka = 2;
             }
@@ -1934,7 +2162,83 @@ int main() {
                 cout << "| вы через окно с решеткой попытались позвать|\n";
                 cout << "| альфреда.. ии о чудо он услышал.           |\n";
                 cout << "|____________________________________________|\n";
-                manageShop(gameShop, playerInventory, playerCoins); //не дать 1 вариант если не купил напильник
+                bool shopping = true;
+while (shopping) {
+    cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+    gameShop.viewShop();
+    cout << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n" << endl;
+    cout << "1. Меч\n";
+    cout << "2. Зажигалка\n";
+    cout << "3. Спички\n";
+    cout << "4. Зуб мангуста\n";
+    cout << "5. Шоколадный меч\n";
+    cout << "6. Рыба меч\n";
+    cout << "7. Эль друин\n";
+    cout << "8. Палка\n";
+    cout << "9. Кладенец\n";
+    cout << "10. Выход\n";
+
+    string input;
+    cin >> input;
+
+    if (input == "c" || input == "C" || input == "с" || input == "С") {
+        manageInventory(playerInventory, playerCoins);
+        continue; // Возвращаемся в магазин после закрытия инвентаря
+    }
+
+    int choice = atoi(input.c_str()); // Преобразуем строку в число для выбора предмета
+
+    string itemName;
+    switch (choice) {
+    case 1:
+        itemName = "Меч";
+        atk = atk + 20;
+        break;
+    case 2:
+        itemName = "Зажигалка";
+        break;
+    case 3:
+        itemName = "Спички";
+        break;
+    case 4:
+        itemName = "Зуб мангуста";
+        atk = atk + 50;
+        break;
+    case 5:
+        itemName = "Шоколадный меч";
+        atk = atk + 90;
+        break;
+    case 6:
+        itemName = "Рыба меч";
+        atk = atk + 120;
+        break;
+    case 7:
+        itemName = "Эль друин";
+        atk = atk + 180;
+        break;
+    case 8:
+        itemName = "Палка";
+        atk = atk + 1;
+        break;
+    case 9:
+        itemName = "Кладенец";
+        atk = atk + 200;
+        break;
+    case 10:
+        shopping = false;
+        break;
+    default:
+        cout << "Неверный выбор!\n";
+        continue;
+    }
+
+    if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+        cout << "Вы купили " << itemName << "\n";
+    }
+    else {
+        cout << "Недостаточно монет или предмет не найден\n";
+    }
+} //не дать 1 вариант если не купил напильник
                 playerCoins = playerCoins + 1000;
                 cout << playerCoins;
                 do {
@@ -1956,7 +2260,83 @@ int main() {
                     cin >> vibor_igroka;
                 } while (vibor_igroka != 1 && vibor_igroka != 2);
                 if (vibor_igroka == 1) {
-                    manageShop(gameShop, playerInventory, playerCoins);
+                    bool shopping = true;
+while (shopping) {
+    cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+    gameShop.viewShop();
+    cout << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n" << endl;
+    cout << "1. Меч\n";
+    cout << "2. Зажигалка\n";
+    cout << "3. Спички\n";
+    cout << "4. Зуб мангуста\n";
+    cout << "5. Шоколадный меч\n";
+    cout << "6. Рыба меч\n";
+    cout << "7. Эль друин\n";
+    cout << "8. Палка\n";
+    cout << "9. Кладенец\n";
+    cout << "10. Выход\n";
+
+    string input;
+    cin >> input;
+
+    if (input == "c" || input == "C" || input == "с" || input == "С") {
+        manageInventory(playerInventory, playerCoins);
+        continue; // Возвращаемся в магазин после закрытия инвентаря
+    }
+
+    int choice = atoi(input.c_str()); // Преобразуем строку в число для выбора предмета
+
+    string itemName;
+    switch (choice) {
+    case 1:
+        itemName = "Меч";
+        atk = atk + 20;
+        break;
+    case 2:
+        itemName = "Зажигалка";
+        break;
+    case 3:
+        itemName = "Спички";
+        break;
+    case 4:
+        itemName = "Зуб мангуста";
+        atk = atk + 50;
+        break;
+    case 5:
+        itemName = "Шоколадный меч";
+        atk = atk + 90;
+        break;
+    case 6:
+        itemName = "Рыба меч";
+        atk = atk + 120;
+        break;
+    case 7:
+        itemName = "Эль друин";
+        atk = atk + 180;
+        break;
+    case 8:
+        itemName = "Палка";
+        atk = atk + 1;
+        break;
+    case 9:
+        itemName = "Кладенец";
+        atk = atk + 200;
+        break;
+    case 10:
+        shopping = false;
+        break;
+    default:
+        cout << "Неверный выбор!\n";
+        continue;
+    }
+
+    if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+        cout << "Вы купили " << itemName << "\n";
+    }
+    else {
+        cout << "Недостаточно монет или предмет не найден\n";
+    }
+}
                     vibor_igroka = 1;
                 }
                 if (vibor_igroka == 2) {
@@ -2019,7 +2399,83 @@ int main() {
                     } while (vibor_igroka != 1 && vibor_igroka != 2);
                 }
                 if (vibor_igroka == 1) {
-                    manageShop(gameShop, playerInventory, playerCoins);
+                    bool shopping = true;
+while (shopping) {
+    cout << "\n" << "Ваши монеты: " << playerCoins << "\n";
+    gameShop.viewShop();
+    cout << "Введите номер предмета для покупки или 'c'/'с' для инвентаря:\n" << endl;
+    cout << "1. Меч\n";
+    cout << "2. Зажигалка\n";
+    cout << "3. Спички\n";
+    cout << "4. Зуб мангуста\n";
+    cout << "5. Шоколадный меч\n";
+    cout << "6. Рыба меч\n";
+    cout << "7. Эль друин\n";
+    cout << "8. Палка\n";
+    cout << "9. Кладенец\n";
+    cout << "10. Выход\n";
+
+    string input;
+    cin >> input;
+
+    if (input == "c" || input == "C" || input == "с" || input == "С") {
+        manageInventory(playerInventory, playerCoins);
+        continue; // Возвращаемся в магазин после закрытия инвентаря
+    }
+
+    int choice = atoi(input.c_str()); // Преобразуем строку в число для выбора предмета
+
+    string itemName;
+    switch (choice) {
+    case 1:
+        itemName = "Меч";
+        atk = atk + 20;
+        break;
+    case 2:
+        itemName = "Зажигалка";
+        break;
+    case 3:
+        itemName = "Спички";
+        break;
+    case 4:
+        itemName = "Зуб мангуста";
+        atk = atk + 50;
+        break;
+    case 5:
+        itemName = "Шоколадный меч";
+        atk = atk + 90;
+        break;
+    case 6:
+        itemName = "Рыба меч";
+        atk = atk + 120;
+        break;
+    case 7:
+        itemName = "Эль друин";
+        atk = atk + 180;
+        break;
+    case 8:
+        itemName = "Палка";
+        atk = atk + 1;
+        break;
+    case 9:
+        itemName = "Кладенец";
+        atk = atk + 200;
+        break;
+    case 10:
+        shopping = false;
+        break;
+    default:
+        cout << "Неверный выбор!\n";
+        continue;
+    }
+
+    if (gameShop.buyItem(itemName, playerInventory, playerCoins)) {
+        cout << "Вы купили " << itemName << "\n";
+    }
+    else {
+        cout << "Недостаточно монет или предмет не найден\n";
+    }
+}
                     vibor_igroka = 1;
                 }
                 if (vibor_igroka2 == 2) {
