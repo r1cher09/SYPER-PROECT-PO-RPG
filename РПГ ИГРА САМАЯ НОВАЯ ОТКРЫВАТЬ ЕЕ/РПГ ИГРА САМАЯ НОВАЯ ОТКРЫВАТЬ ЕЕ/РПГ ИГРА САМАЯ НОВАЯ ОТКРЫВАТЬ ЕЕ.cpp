@@ -829,7 +829,7 @@ int main() {
                                 } while (vibor_igroka != 1);
                             }
 
-                            if (vibor_igroka3 == 1) {
+                            if (vibor_igroka == 1) {
                                 do {
 
                                     cout << "______________________________________________\n";
@@ -1303,7 +1303,7 @@ int main() {
                                         cout << "| и торговал чем-то, вы решили зайти к нему  |\n";
                                         cout << "| купить что-нибуть                          |\n";
                                         cout << "|____________________________________________|\n";
-                                        this_thread::sleep_for(chrono::nanoseconds(43000000000));
+                                        this_thread::sleep_for(chrono::nanoseconds(30000000000));
                                         proceedWithStory(playerInventory, gameShop, playerCoins);
                                         cout << "1. продолжить\n";
                                         cin >> vibor_igroka2;
@@ -2826,6 +2826,7 @@ int main() {
 
         /////////////
         if (vibor_igroka5 == 1) {//попасть в ад
+            playerCoins = 0;
             do {
                 cout << "______________________________________________\n";//ТРАТА ЕДЫ И ГОЛОДА НЕ НУЖНА!!!!
                 cout << "| харон отвозит вас в царство аида и вы      |\n";
@@ -3929,7 +3930,7 @@ int main() {
                         cout << "| |1|пойти к макарии                         |\n";
                         cout << "|____________________________________________|\n";
                         cin >> vibor_igroka;
-                    } while (vibor_igroka4 != 1);
+                    } while (vibor_igroka != 1);
                     vibor_igroka = 0;
                     vibor_igroka2 = 0;
                     vibor_igroka3 = 0;
